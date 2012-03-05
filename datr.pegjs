@@ -42,33 +42,33 @@ relativeDay
 relativePast
   = ago SPACE n:Integer SPACE yearsLiteral							{return {"years": -n} }
   / ago SPACE n:Integer SPACE monthsLiteral							{return {"months": -n} }
-  / ago SPACE n:Integer SPACE weeksLiteral SPACE day:weekdayLiteral	{return {"weeks": -n} }
+  / ago SPACE n:Integer SPACE weeksLiteral SPACE w:weekdayLiteral	{return {"weeks": -n, "weekday": w} }
   / ago SPACE n:Integer SPACE weeksLiteral 							{return {"weeks": -n} }
   / ago SPACE n:Integer SPACE daysLiteral							{return {"days": -n} }
   / ago SPACE n:Integer SPACE hoursLiteral							{return {"hours": -n} }
   / ago SPACE n:Integer SPACE minutesLiteral						{return {"minutes": -n} }
   / last SPACE yearsLiteral											{return {"years": -1} }
   / last SPACE monthsLiteral										{return {"months": -1} }
-  / last SPACE weeksLiteral SPACE day:weekdayLiteral				{return {"weeks": -1, "day": day} }
+  / last SPACE weeksLiteral SPACE w:weekdayLiteral					{return {"weeks": -1, "weekday": w} }
   / last SPACE weeksLiteral											{return {"weeks": -1} }
   / last SPACE day:weekdayLiteral									{return {"day": day} }
 
 relativeFuture
   = next SPACE yearsLiteral											{return {"years": 1} }
   / next SPACE monthsLiteral										{return {"months": 1} }
-  / next SPACE weeksLiteral SPACE day:weekdayLiteral				{return {"weeks": 1, "day": day} }
+  / next SPACE weeksLiteral SPACE w:weekdayLiteral					{return {"weeks": 1, "weekday": w} }
   / next SPACE weeksLiteral											{return {"weeks": 1} }
   / next SPACE day:weekdayLiteral									{return {"day": day} }
   / in SPACE n:Integer SPACE? yearsLiteral							{return {"years": n} }
   / in SPACE n:Integer SPACE? monthsLiteral							{return {"months": n} }
-  / in SPACE n:Integer SPACE weeksLiteral SPACE day:weekdayLiteral	{return {"weeks": n, "day": day} }
+  / in SPACE n:Integer SPACE weeksLiteral SPACE w:weekdayLiteral	{return {"weeks": n, "weekday": w} }
   / in SPACE n:Integer SPACE? weeksLiteral							{return {"weeks": n} }
   / in SPACE n:Integer SPACE? daysLiteral							{return {"days": n} }
   / in SPACE n:Integer SPACE? hoursLiteral							{return {"hours": n} }
   / in SPACE n:Integer SPACE? minutesLiteral						{return {"minutes": n} }
 
 absolute
-  = day:weekdayLiteral																		{return {"day": day} }
+  = w:weekdayLiteral																		{return {"weekday": w} }
   / day:dayDigits !(SPACE clock) DOT month:monthDigits DOT year:yearDigits	DOT?			{return {"day": day, "month": month, "year": year} }
   / day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral SPACE year:yearDigits	DOT?	{return {"day": day, "month": month, "year": year} }
   / day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral 								{return {"day": day, "month": month} }
