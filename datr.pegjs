@@ -68,12 +68,19 @@ relativeFuture
   / in SPACE n:Integer SPACE? minutesLiteral						{return {"minutes": n} }
 
 absolute
-  = w:weekdayLiteral																		{return {"weekday": w} }
-  / day:dayDigits !(SPACE clock) DOT month:monthDigits DOT year:yearDigits	DOT?			{return {"day": day, "month": month, "year": year} }
-  / day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral SPACE year:yearDigits	DOT?	{return {"day": day, "month": month, "year": year} }
-  / day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral 								{return {"day": day, "month": month} }
-  / day:dayDigits !(SPACE clock) DOT month:monthDigits DOT?									{return {"day": day, "month": month} }
-  / time:timeDeclaration								{return time}
+  = absoluteDate
+  / absoluteTime
+
+absoluteDate
+ = onSpace? w:weekdayLiteral																				{return {"weekday": w} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT year:yearDigits	DOT?					{return {"day": day, "month": month, "year": year} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral SPACE year:yearDigits	DOT?	{return {"day": day, "month": month, "year": year} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral 								{return {"day": day, "month": month} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT?											{return {"day": day, "month": month} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT?																{return {"day": day}}
+
+absoluteTime
+  = time:timeDeclaration								{return time}
 
 weekdayLiteral
   = day:monday
@@ -261,9 +268,6 @@ minutesLiteral
 last
   = 'letzte'casusSuffix?
 
-in
-  = 'in'
-
 next
  = 'nächste'casusSuffix?
 
@@ -271,6 +275,15 @@ casusSuffix
  = 'n'
  / 'r'
  / 's'
+
+in
+  = 'in'
+
+on
+  = 'am'
+
+onSpace
+  = on SPACE
 
 at
   = 'um'

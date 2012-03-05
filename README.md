@@ -36,6 +36,8 @@ Zum kompilieren
 
 Solange PEG.js 0.7 noch nicht draußen ist versteht der Parser nur Kleinbuchstaben. Im grunde gibt es keinen besonderen Grund. Ich bin einfach zu faul um aufetwaige Großbuchstaben zu testen und warte auf eine bessere Syntax, die eben 0.7 erscheinen soll. Da aber eine typische Eingabe sehr kurz ist und somit schnell in Kleinbuchstaben transparent umgewandelt werden kann, sollte es kein Problem darstellen.
 
+
+
 ### Datum ###
 
 Der Parser kann im Moment folgenden Datumsangaben verarbeiten
@@ -52,6 +54,8 @@ Der Parser kann im Moment folgenden Datumsangaben verarbeiten
 
 - `31. april 2009`
 - `1. januar`
+- `am 15.`
+- `am 20. april`
 
 **Relative Datumsangaben**
 
