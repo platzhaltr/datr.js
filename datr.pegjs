@@ -24,8 +24,10 @@ start
   / absolute:absolute SPACE time:timeDeclaration		{return merge(absolute, time)}
 
 timeDeclaration
-  = at SPACE time:time									{return time}
-  / time:time											{return time}
+  = at SPACE t:time										{return t}
+  / t:time												{return t}
+  / f:fuzzyTime SPACE at SPACE t:time					{return merge({"time": f}, t)}
+  / f:fuzzyTime											{return {"time": f}}
 
 relative
   = relativeDay
@@ -208,7 +210,6 @@ time
   = h:hoursDigits COLON m:minutesDigits SPACE? clock?	{return {"hour": h, "minute": m}}
   / h:hoursDigits SPACE? clock SPACE? m:minutesDigits 			{return {"hour": h, "minute": m}}
   / h:hoursDigits SPACE? clock?							{return {"hour": h}}
-  / fuzzy:fuzzyTime										{return {"time": fuzzy}}
 
 fuzzyTime
   = morning

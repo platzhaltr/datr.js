@@ -96,6 +96,9 @@ Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also 
 - `gestern mittag`
 - `gestern abend`
 - `morgen früh`
+- `morgen früh um 10`
+- `morgen abend um 8:30`
+- `morgen abend um 20:15`
 
 **Relative Zeitangaben**
 
