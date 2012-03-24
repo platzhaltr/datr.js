@@ -30,6 +30,57 @@ var parser = require('./datr.parser.js');
 
 	function Datr() {}
 
+/*
+The parser builds an object like this:
+
+	{
+		// relative date
+		"years":	"± x",
+		"months":	"± x",
+		"weeks":	"± x",
+		"days"	:	"± x",
+		"weekday"	"[0-6]"
+		
+		// relative time
+		"hours"	:	"± x",
+		"minutes":	"± x",
+
+		// absolute date
+		"month":	"y",
+		"year":		"y",
+		"month":	"y",
+		"day":		"y",
+
+		// absolute time
+		"hour":		"y",
+		"minute":	"y",
+		
+		// fuzzy time
+		"fuzzytime":	""
+	}
+
+- where `x,y ∈ ℕ`
+- not all fields are filled
+- fields with suffix `s` are for relative data/time information
+- the others are for absolute data/time information
+- relative and absolute fields can be mixed
+
+In detail:
+
+- `years` can be combined with absolute and fuzzy time
+- `months` can be combined with absolute and fuzzy time
+- `weeks` can be combined with `day`, absolute and fuzzy time
+- `days` can be combined with with absolute and fuzzy time 
+- `hours`. Can stand alone.
+- `weekday` is interpreted relative in respect to `focus.date` (see configuration)
+
+- `year`. Can only be combined with `month`´and `date` pair
+- `month`. Can only be combined with `day` and may be paired with `year`
+- `day`. Can stand alone. If standing alone is interpreted relative in respect to `focus.date` (see configuration).
+- `time`. Can be combined with relative dates
+- `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
+- `minute` needs `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
+*/
 	Datr.prototype.get = function (datum, now) {
 		now = (typeof now === "undefined") ? new Date() : now;
 		var then = new Date();

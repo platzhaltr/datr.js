@@ -29,14 +29,14 @@ Man benötigt
 Zum kompilieren
 
 	git clone git@github.com:platzhaltr/datr-js.git
-	cd datr-js.git
-	pegjs datr.pegjs
+	cd datr-js
+	make
 
 ## Benutzung ##
 
-Solange PEG.js 0.7 noch nicht draußen ist versteht der Parser nur Kleinbuchstaben. Im grunde gibt es keinen besonderen Grund. Ich bin einfach zu faul um aufetwaige Großbuchstaben zu testen und warte auf eine bessere Syntax, die eben 0.7 erscheinen soll. Da aber eine typische Eingabe sehr kurz ist und somit schnell in Kleinbuchstaben transparent umgewandelt werden kann, sollte es kein Problem darstellen.
+I Moment versteht der Parser nur Kleinbuchstaben in allen Angaben. Der Grund ist, dass die Syntax in PEG.js 0.6 zur Handhabung von Groß- und Kleinschreibung ziemlich umständlich ist. 
 
-
+Das Kern-Modul wandelt daher alle Eingabedaten zunächst transparent für den Endnutzer in Kleinbuchstaben um.
 
 ### Datum ###
 
@@ -80,7 +80,7 @@ Der Parser kann im Moment folgenden Datumsangaben verarbeiten
 
 ### Zeit ###
 
-Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also mit den Datumansgaben zusammen (es gibt vereinzelte Ausnahmen) verarbeitet werden:
+Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also mit den Datumsangaben zusammen (es gibt vereinzelte Ausnahmen) verarbeitet werden:
 
 **Formelle Zeitangaben**
 
@@ -111,7 +111,7 @@ Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also 
 
 ## Konfiguration ##
 
-The parser can return a *fuzzy* time field `time`. The configuration maps these to specific times:
+Der Parser kann ein Feld mit dem Bezeichner `fuzzytime` zurückliefern. Die Konfiguration setzt diese unscharfe Zeitangabe dann in spezifische Uhrzeiten um: 
 
 	"times": {
 		"morning": "9:00"
@@ -121,70 +121,22 @@ The parser can return a *fuzzy* time field `time`. The configuration maps these 
 		"night": "23:00"
 	}
 
-Depending on your use case `weekday`, `hour` and `minute` may be interpreted differently. It can refer to the next instant, the last instant or the nearest event.
+In Abhängigkeit von der Einsetzung der Bibliothek können die Felder `weekday`, `hour` und `minute` anders interpretiert werden.
 
-For example I have an app where users can log their purchases and spending; if the user writes `tuesday`, it normally refers to the last tuesday. But if you are writing an application that tracks appointments, it normally refers to the next tuesday. The same goes for time time. 
+Zum Beispiel kann die Bibliothek in einem Umfeld genutzt werden in dem Einkäufe und Ausgaben augeschrieben und nachverfolgt werden. Wenn der Benutzer `dienstag` als Teil seiner Eingabe benutzt bezieht er sich normalerweise auf den letzten Dienstag.
+
+Ein anderes Beispiel wäre eine Anwendung mit der Termine orgabnisiert werden, dort würde sich `dienstag` im Standardfall auf den nächsten Dienstag beziehen. 
+
+Dieselbe Aussage kann man für die Zeit treffen. Die folgenden Einstellungen können genutzt werden um den Fokus zu setzen.
 
 	"focus": {
 		"weekday": ["past|future"] // defaults to future
 		"time": ["past|future"] // defaults to future
 	}
 
-In some cases it might be helpful to set a `grace` period before the `focus` kicks in. In case of the calendar application (time and date focus are set to `future`) it might be helpful to assume next days `18:00` if now is `17:58`.
+In manchen Fällen ist es hilfreich eine Toleranz bzw. `grace` Periode zu nutzen bevor die Fokus-Einstellung greift. Das macht zum Beispiel in der Terminorganisation Sinn. Wenn es `17:58` ist, ist bei der Eingabe von `18:00` wahrscheinlich morgen um 18:00 gemeint und nicht heute.
 
 	"grace" {
 		"hours": "x",	// defaults to 0
 		"minutes": "x"	// defaults to 0
 	}
-
-## Funktion ##
-
-The parser build an object like this
-
-	{
-		// relative date
-		"years":	"± x",
-		"months":	"± x",
-		"weeks":	"± x",
-		"days"	:	"± x",
-		"weekday"	"[0-6]"
-		
-		// relative time
-		"hours"	:	"± x",
-		"minutes":	"± x",
-
-		// absolute date
-		"month":	"y",
-		"year":		"y",
-		"month":	"y",
-		"day":		"y",
-
-		// absolute time
-		"hour":		"y",
-		"minute":	"y",
-		
-		// fuzzy time
-		"time":		""
-	}
-
-- where `x,y ∈ ℕ`
-- not all fields are filled
-- fields with suffix `s` are for relative data/time information
-- the others are for absolute data/time information
-- relative and absolute fields can be mixed
-
-In detail:
-
-- `years` can be combined with absolute and fuzzy time
-- `months` can be combined with absolute and fuzzy time
-- `weeks` can be combined with `day`, absolute and fuzzy time
-- `days` can be combined with with absolute and fuzzy time 
-- `hours`. Can stand alone.
-- `weekday` is interpreted relative in respect to `focus.date` (see configuration)
-
-- `year`. Can only be combined with `month`´and `date` pair
-- `month`. Can only be combined with `day` and may be paired with `year`
-- `day`. Can stand alone. If standing alone is interpreted relative in respect to `focus.date` (see configuration).
-- `time`. Can be combined with relative dates
-- `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
-- `minute` needs `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
