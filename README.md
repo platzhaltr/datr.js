@@ -30,6 +30,7 @@ Zum kompilieren
 
 	git clone git@github.com:platzhaltr/datr.js.git
 	cd datr.js
+	npm install
 	make
 
 ## Benutzung ##
