@@ -26,8 +26,8 @@ exports.testDateInformal = function (test) {
 exports.testDateRelative = function (test) {
     test.expect(18);
 	
-	test.deepEqual(parser.parse("nächsten donnerstag"), {"weekday": 3}, "Relative weekday, future.");
-	test.deepEqual(parser.parse("letzten mittwoch"), {"weekday": -2}, "Relative weekday, past.");
+	test.deepEqual(parser.parse("nächsten donnerstag"), {"weekday": 4}, "Relative weekday, future.");
+	test.deepEqual(parser.parse("letzten mittwoch"), {"weekday": -3}, "Relative weekday, past.");
 
 	test.deepEqual(parser.parse("morgen"), {"days": 1}, "Relative day.");
 	test.deepEqual(parser.parse("gestern"), {"days": -1}, "Relative day.");
@@ -41,11 +41,11 @@ exports.testDateRelative = function (test) {
 	test.deepEqual(parser.parse("in 2 wochen"), {"weeks": 2}, "Relative week.");
 	test.deepEqual(parser.parse("vor 2 wochen"), {"weeks": -2}, "Relative week.");
 
-	test.deepEqual(parser.parse("letzte woche donnerstag"), {"weeks": -1, "weekday": 3}, "Relative past, last week, weekday.");
-	test.deepEqual(parser.parse("vor 3 wochen mittwoch"), {"weeks": -3, "weekday": 2}, "Relative past, multiple weeks, weekday.");
+	test.deepEqual(parser.parse("letzte woche donnerstag"), {"weeks": -1, "weekday": 4}, "Relative past, last week, weekday.");
+	test.deepEqual(parser.parse("vor 3 wochen mittwoch"), {"weeks": -3, "weekday": 3}, "Relative past, multiple weeks, weekday.");
 	
-	test.deepEqual(parser.parse("in 4 wochen montag"), {"weeks": 4, "weekday": 0}, "Relative future, multiple weeks, weekday.");
-	test.deepEqual(parser.parse("in 3 wo mo"), {"weeks": 3, "weekday": 0}, "Relative future, multiple weeks, weekyday, shorthand.");
+	test.deepEqual(parser.parse("in 4 wochen montag"), {"weeks": 4, "weekday": 1}, "Relative future, multiple weeks, weekday.");
+	test.deepEqual(parser.parse("in 3 wo mo"), {"weeks": 3, "weekday": 1}, "Relative future, multiple weeks, weekyday, shorthand.");
 	
 	test.deepEqual(parser.parse("vor 2 monaten"), {"months": -2}, "Relative future, multiple month.");
 

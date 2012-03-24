@@ -98,36 +98,36 @@ weekdayLiteral
 
 /** guard against morning */
 monday
-  = 'montag'				{return 0;}
-  / 'mo'!(mondayGuard)DOT? 	{return 0;}
+  = 'montag'				{return 1;}
+  / 'mo'!(mondayGuard)DOT? 	{return 1;}
 
 mondayGuard
   = 'rgens'
   / 'at'
 
 tuesday
-  = 'dienstag'		{return 1;}
-  / 'di'DOT?		{return 1;}
+  = 'dienstag'		{return 2;}
+  / 'di'DOT?		{return 2;}
 
 wednesday
-  = 'mittwoch'		{return 2;}
-  / 'mi'DOT?		{return 2;}
+  = 'mittwoch'		{return 3;}
+  / 'mi'DOT?		{return 3;}
 
 thursday
-  = 'donnerstag'	{return 3;}
-  / 'do'DOT?		{return 3;}
+  = 'donnerstag'	{return 4;}
+  / 'do'DOT?		{return 4;}
 
 friday
-  = 'freitag'		{return 4;}
-  / 'fr'DOT?		{return 4;}
+  = 'freitag'		{return 5;}
+  / 'fr'DOT?		{return 5;}
 
 saturday
-  = 'samstag'		{return 5;}
-  / 'sa'DOT?		{return 5;}
+  = 'samstag'		{return 6;}
+  / 'sa'DOT?		{return 6;}
 
 sunday
-  = 'son'[n]?'tag'	{return 6;}
-  / 'so'DOT?		{return 6;}
+  = 'son'[n]?'tag'	{return 0;}
+  / 'so'DOT?		{return 0;}
 
 yearsLiteral
   = 'jahr'
