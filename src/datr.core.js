@@ -59,7 +59,7 @@ The parser builds an object like this:
 		"fuzzytime":	""
 	}
 
-- where `x,y ∈ ℕ`
+- where `x,y natural numbers`
 - not all fields are filled
 - fields with suffix `s` are for relative data/time information
 - the others are for absolute data/time information
@@ -70,7 +70,7 @@ In detail:
 - `years` can be combined with absolute and fuzzy time
 - `months` can be combined with absolute and fuzzy time
 - `weeks` can be combined with `day`, absolute and fuzzy time
-- `days` can be combined with with absolute and fuzzy time 
+- `days` can be combined with with absolute and fuzzy time
 - `hours`. Can stand alone.
 - `weekday` is interpreted relative in respect to `focus.date` (see configuration)
 
