@@ -26,15 +26,15 @@ exports.testDateInformal = function (test) {
 exports.testDateRelative = function (test) {
     test.expect(18);
 	
-	test.deepEqual(parser.parse("nächsten donnerstag"), {"weekday": 3}, "Relative weekday.");
-	test.deepEqual(parser.parse("letzten mittwoch"), {"weekday": -2}, "Relative weekday.");
+	test.deepEqual(parser.parse("nächsten donnerstag"), {"weekday": 3}, "Relative weekday, future.");
+	test.deepEqual(parser.parse("letzten mittwoch"), {"weekday": -2}, "Relative weekday, past.");
 
 	test.deepEqual(parser.parse("morgen"), {"days": 1}, "Relative day.");
 	test.deepEqual(parser.parse("gestern"), {"days": -1}, "Relative day.");
 	test.deepEqual(parser.parse("vorgestern"), {"days": -2}, "Relative day.");
 	test.deepEqual(parser.parse("vor 3 tagen"), {"days": -3}, "Relative day.");
 
-	test.deepEqual(parser.parse("am 15."), {"day": 15}, "Relative date with prefix, without month, without year.");
+	test.deepEqual(parser.parse("am 15."), {"day": 15}, "Relative day with prefix, without month, without year.");
 	
 	test.deepEqual(parser.parse("nächste woche"), {"weeks": 1}, "Relative week.");
 	test.deepEqual(parser.parse("letzte woche"), {"weeks": -1}, "Relative week.");
