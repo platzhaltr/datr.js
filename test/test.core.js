@@ -39,9 +39,18 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(3);
+    test.expect(6);
 	var then = {};
 	
+	// "nächsten donnerstag"
+	then = d.get({"weekday": 4}, DATE);
+
+	// DATE is 24.03, is saturday, is getDay() = 5
+	test.strictEqual(then.getDate(), 29, "Relative weekday, future. Day.");
+	test.strictEqual(then.getMonth(), 2, "Relative weekday, future. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, future. Year.");
+	
+	// am 15.
 	then = d.get({"day": 15}, DATE);
 
 	// DATE is 24.03, default config.focus.date is "future", so point to april
