@@ -3,7 +3,6 @@ var d = new core.Datr();
 
 // epoch 1332583980000
 var DATE = new Date("March 24, 2012 11:13:00");
-var then = {};
 
 exports.testDateConstant = function (test) {
     test.expect(1);
@@ -15,6 +14,7 @@ exports.testDateConstant = function (test) {
 
 exports.testDateFormal = function (test) {
     test.expect(9);
+	var then = {};
 	
 	then = d.get({"day": 5, "month": 11}, DATE);
 
@@ -35,6 +35,19 @@ exports.testDateFormal = function (test) {
 	test.strictEqual(then.getMonth(), 2, "Absolute date with short year. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Absolute date with short year. Year.");
 
+    test.done();
+};
+
+exports.testDateRelative = function (test) {
+    test.expect(3);
+	var then = {};
 	
+	then = d.get({"day": 15}, DATE);
+
+	// DATE is 24.03, default config.focus.date is "future", so point to april
+	test.strictEqual(then.getDate(), 15, "Relative day with prefix, without month, without year. Day.");
+	test.strictEqual(then.getMonth(), 3, "Relative day with prefix, without month, without year. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative day with prefix, without month, without year. Year.");
+
     test.done();
 };

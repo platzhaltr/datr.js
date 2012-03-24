@@ -113,6 +113,15 @@ In detail:
 
 		if (datum.day !== undefined) {
 			day = datum.day;
+			if (datum.month === undefined) {
+				if (config.focus.date === "future") {
+					month = month + 1;
+				}
+				if (config.focus.date === "past") {
+					month = datum.day < day ? month : month - 1;
+				}
+			}
+			
 		}
 
 		if (datum.month !== undefined) {
