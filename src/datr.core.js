@@ -82,10 +82,13 @@ In detail:
 - `minute` needs `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
 */
 	Datr.prototype.get = function (datum, now) {
-		now = (typeof now === "undefined") ? new Date() : now;
-		var then = new Date();
+		var then = new Date(now.getTime());
 
-		var hour = then.getHours(), minute = then.getMinutes();
+		var day = then.getDate();
+		var month = then.getMonth();
+		var year = then.getFullYear();
+		var hour = then.getHours();
+		var minute = then.getMinutes();
 
 		if (datum.weeks !== undefined) {
 			then.setHours(now.getHours() + datum.weeks * DAYS_IN_WEEK * HOURS_IN_DAY);
@@ -106,6 +109,18 @@ In detail:
 			} else if (config.focus.date === "future") {
 				then.setDate(then.getDate() + (datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((datum.weekday - now.getDay() + DAYS_IN_WEEK) % DAYS_IN_WEEK));
 			}
+		}
+
+		if (datum.day !== undefined) {
+			day = datum.day;
+		}
+
+		if (datum.month !== undefined) {
+			month = datum.month;
+		}
+		
+		if (datum.year !== undefined) {
+			year = datum.year;
 		}
 
 		if (datum.hour !== undefined) {
@@ -133,6 +148,9 @@ In detail:
 			}
 		}
 
+		then.setDate(day);
+		then.setMonth(month);
+		then.setFullYear(year);
 		then.setHours(hour);
 		then.setMinutes(minute);
 		then.setSeconds(ZERO);
@@ -140,8 +158,10 @@ In detail:
 		return then;
 	};
 
-	Datr.prototype.parse =  function (text) {
-		return this.get(parser.parse(text.toLowerCase()), new Date());
+	Datr.prototype.parse =  function (text, now) {
+		now = (typeof now === "undefined") ? new Date() : now;
+		console.log("NOW:" + now)
+		return this.get(parser.parse(text.toLowerCase()), now);
 	};
 
 	// expose it
