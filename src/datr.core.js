@@ -10,7 +10,7 @@ var parser = require('./datr.parser.js');
 
 	/** CONSTANTS */
 	var ZERO = 0, DAYS_IN_WEEK = 7, HOURS_IN_DAY = 24, HOURS_IN_MERIDIAN = 12;
-
+	var MILLENIUM = 1000;
 	/**
 	* times must be in 24h hh:mm format
 	*/
@@ -121,6 +121,11 @@ In detail:
 		
 		if (datum.year !== undefined) {
 			year = datum.year;
+			
+			// deal with short year literals
+			if (year < 100) {
+				year = Math.floor(now.getFullYear() / MILLENIUM) * MILLENIUM + year;
+			}
 		}
 
 		if (datum.hour !== undefined) {
@@ -160,7 +165,6 @@ In detail:
 
 	Datr.prototype.parse =  function (text, now) {
 		now = (typeof now === "undefined") ? new Date() : now;
-		console.log("NOW:" + now)
 		return this.get(parser.parse(text.toLowerCase()), now);
 	};
 
