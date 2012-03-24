@@ -39,17 +39,25 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(6);
+    test.expect(9);
 	var then = {};
 	
 	// "nächsten donnerstag"
 	then = d.get({"weekday": 4}, DATE);
 
-	// DATE is 24.03, is saturday, is getDay() = 5
+	// DATE is 24.03, is saturday, getDay() = 5
 	test.strictEqual(then.getDate(), 29, "Relative weekday, future. Day.");
 	test.strictEqual(then.getMonth(), 2, "Relative weekday, future. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, future. Year.");
-	
+
+	// "letzten mittwoch"
+	then = d.get({"weekday": -3}, DATE);
+
+	// DATE is 24.03, is saturday, getDay() = 5
+	test.strictEqual(then.getDate(), 21, "Relative weekday, past. Day.");
+	test.strictEqual(then.getMonth(), 2, "Relative weekday, past. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, past. Year.");
+
 	// am 15.
 	then = d.get({"day": 15}, DATE);
 

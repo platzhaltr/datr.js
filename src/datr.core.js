@@ -104,9 +104,9 @@ In detail:
 		}
 
 		if (datum.weekday !== undefined) {
-			if (config.focus.date === "past") {
-				day = (then.getDate() - ((datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((now.getDay() - datum.weekday + DAYS_IN_WEEK) % DAYS_IN_WEEK)));
-			} else if (config.focus.date === "future") {
+			if (config.focus.date === "past" || datum.weekday < 0) {				
+				day = (then.getDate() - ((datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((now.getDay() - Math.abs(datum.weekday) + DAYS_IN_WEEK) % DAYS_IN_WEEK)));
+			} else if (config.focus.date === "future") {				
 				day = (then.getDate() + ((datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((datum.weekday - now.getDay() + DAYS_IN_WEEK) % DAYS_IN_WEEK)));
 			}
 		}
