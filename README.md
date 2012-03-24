@@ -28,8 +28,8 @@ Man benötigt
 
 Zum kompilieren
 
-	git clone git@github.com:platzhaltr/datr-js.git
-	cd datr-js
+	git clone git@github.com:platzhaltr/datr.js.git
+	cd datr.js
 	make
 
 ## Benutzung ##
