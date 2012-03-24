@@ -20,14 +20,16 @@ function merge(objectA,objectB){
 start
   = relative:relative ! (SPACE time:timeDeclaration) 	{return relative}
   / relative:relative SPACE time:timeDeclaration		{return merge(relative, time)}
-  / absolute:absolute ! (SPACE time:timeDeclaration)	{return absolute}
-  / absolute:absolute SPACE time:timeDeclaration		{return merge(absolute, time)}
+  / !(hoursDigits COLON) ad:absoluteDate ! (SPACE timeDeclaration)			{return ad}
+  / !(hoursDigits COLON) ad:absoluteDate SPACE t:timeDeclaration				{return merge(ad, t)}
+  / t:timeDeclaration									{return t}
 
 timeDeclaration
-  = at SPACE t:time										{return t}
+  = at SPACE t:time SPACE f:fuzzyTime					{return merge({"fuzzytime": f}, t)}
+  / at SPACE t:time										{return t}
   / t:time												{return t}
-  / f:fuzzyTime SPACE at SPACE t:time					{return merge({"time": f}, t)}
-  / f:fuzzyTime											{return {"time": f}}
+  / f:fuzzyTime SPACE at SPACE t:time					{return merge({"fuzzytime": f}, t)}
+  / f:fuzzyTime											{return {"fuzzytime": f}}
 
 relative
   = relativeDay
@@ -53,14 +55,14 @@ relativePast
   / last SPACE monthsLiteral										{return {"months": -1} }
   / last SPACE weeksLiteral SPACE w:weekdayLiteral					{return {"weeks": -1, "weekday": w} }
   / last SPACE weeksLiteral											{return {"weeks": -1} }
-  / last SPACE day:weekdayLiteral									{return {"day": day} }
+  / last SPACE w:weekdayLiteral										{return {"weekday": -w} }
 
 relativeFuture
   = next SPACE yearsLiteral											{return {"years": 1} }
   / next SPACE monthsLiteral										{return {"months": 1} }
   / next SPACE weeksLiteral SPACE w:weekdayLiteral					{return {"weeks": 1, "weekday": w} }
   / next SPACE weeksLiteral											{return {"weeks": 1} }
-  / next SPACE day:weekdayLiteral									{return {"day": day} }
+  / next SPACE w:weekdayLiteral										{return {"weekday": w} }
   / in SPACE n:Integer SPACE? yearsLiteral							{return {"years": n} }
   / in SPACE n:Integer SPACE? monthsLiteral							{return {"months": n} }
   / in SPACE n:Integer SPACE weeksLiteral SPACE w:weekdayLiteral	{return {"weeks": n, "weekday": w} }
@@ -69,20 +71,21 @@ relativeFuture
   / in SPACE n:Integer SPACE? hoursLiteral							{return {"hours": n} }
   / in SPACE n:Integer SPACE? minutesLiteral						{return {"minutes": n} }
 
-absolute
-  = absoluteDate
-  / absoluteTime
-
 absoluteDate
  = onSpace? w:weekdayLiteral																				{return {"weekday": w} }
- / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT year:yearDigits	DOT?					{return {"day": day, "month": month, "year": year} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT year:yearDigits	DOT?					{return {"day": day, "month": month-1, "year": year} }
  / onSpace? day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral SPACE year:yearDigits	DOT?	{return {"day": day, "month": month, "year": year} }
  / onSpace? day:dayDigits !(SPACE clock) DOT_SPACE SPACE? month:monthLiteral 								{return {"day": day, "month": month} }
- / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT?											{return {"day": day, "month": month} }
+ / onSpace? day:dayDigits !(SPACE clock) DOT month:monthDigits DOT?											{return {"day": day, "month": month-1} }
  / onSpace? day:dayDigits !(SPACE clock) DOT?																{return {"day": day}}
 
 absoluteTime
   = time:timeDeclaration								{return time}
+
+time
+  =  h:hoursDigits COLON m:minutesDigits SPACE? clock?	{return {"hour": h, "minute": m}}
+  / !(h:monthDigits DOT) h:hoursDigits SPACE? clock SPACE? m:minutesDigits 		{return {"hour": h, "minute": m}}
+  / !(h:monthDigits DOT) h:hoursDigits SPACE? clock?							{return {"hour": h}}
 
 weekdayLiteral
   = day:monday
@@ -95,7 +98,7 @@ weekdayLiteral
 
 /** guard against morning */
 monday
-  = 'montag'			{return 0;}
+  = 'montag'				{return 0;}
   / 'mo'!(mondayGuard)DOT? 	{return 0;}
 
 mondayGuard
@@ -205,11 +208,6 @@ tomorrow
 
 dayAfterTomorrow
   = [üu][e]?'bermorgen'
-
-time
-  = h:hoursDigits COLON m:minutesDigits SPACE? clock?	{return {"hour": h, "minute": m}}
-  / h:hoursDigits SPACE? clock SPACE? m:minutesDigits 			{return {"hour": h, "minute": m}}
-  / h:hoursDigits SPACE? clock?							{return {"hour": h}}
 
 fuzzyTime
   = morning

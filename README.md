@@ -46,6 +46,7 @@ Der Parser kann im Moment folgenden Datumsangaben verarbeiten
 
 - `5.12.`
 - `25.03.2012`
+- `25.3.2012`
 - `25.03.12`
 - `25.3.12`
 - `1.10.2012`
@@ -93,6 +94,9 @@ Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also 
 - `18 uhr 30`
 - `um 10`
 - `um 22:40`
+
+**Unscharfe Zeitangaben**
+
 - `gestern mittag`
 - `gestern abend`
 - `morgen früh`
@@ -104,3 +108,83 @@ Darüber hinaus versteht der Parser folgende Zeitangaben, die zusätzlich, also 
 
 - `vor 3 stunden`
 - `in 20 minuten`
+
+## Konfiguration ##
+
+The parser can return a *fuzzy* time field `time`. The configuration maps these to specific times:
+
+	"times": {
+		"morning": "9:00"
+		"noon": "12:00"
+		"afternoon": "15:00"
+		"evening": "19:00"
+		"night": "23:00"
+	}
+
+Depending on your use case `weekday`, `hour` and `minute` may be interpreted differently. It can refer to the next instant, the last instant or the nearest event.
+
+For example I have an app where users can log their purchases and spending; if the user writes `tuesday`, it normally refers to the last tuesday. But if you are writing an application that tracks appointments, it normally refers to the next tuesday. The same goes for time time. 
+
+	"focus": {
+		"weekday": ["past|future"] // defaults to future
+		"time": ["past|future"] // defaults to future
+	}
+
+In some cases it might be helpful to set a `grace` period before the `focus` kicks in. In case of the calendar application (time and date focus are set to `future`) it might be helpful to assume next days `18:00` if now is `17:58`.
+
+	"grace" {
+		"hours": "x",	// defaults to 0
+		"minutes": "x"	// defaults to 0
+	}
+
+## Funktion ##
+
+The parser build an object like this
+
+	{
+		// relative date
+		"years":	"± x",
+		"months":	"± x",
+		"weeks":	"± x",
+		"days"	:	"± x",
+		"weekday"	"[0-6]"
+		
+		// relative time
+		"hours"	:	"± x",
+		"minutes":	"± x",
+
+		// absolute date
+		"month":	"y",
+		"year":		"y",
+		"month":	"y",
+		"day":		"y",
+
+		// absolute time
+		"hour":		"y",
+		"minute":	"y",
+		
+		// fuzzy time
+		"time":		""
+	}
+
+- where `x,y ∈ ℕ`
+- not all fields are filled
+- fields with suffix `s` are for relative data/time information
+- the others are for absolute data/time information
+- relative and absolute fields can be mixed
+
+In detail:
+
+- `years` can be combined with absolute and fuzzy time
+- `months` can be combined with absolute and fuzzy time
+- `weeks` can be combined with `day`, absolute and fuzzy time
+- `days` can be combined with with absolute and fuzzy time 
+- `hours`. Can stand alone.
+- `weekday` is interpreted relative in respect to `focus.date` (see configuration)
+
+- `year`. Can only be combined with `month`´and `date` pair
+- `month`. Can only be combined with `day` and may be paired with `year`
+- `day`. Can stand alone. If standing alone is interpreted relative in respect to `focus.date` (see configuration).
+- `time`. Can be combined with relative dates
+- `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
+- `minute` needs `hour`. Can be combined with everything. If given no date it is interpreted relative in respect to `focus.time` (see configuration).
