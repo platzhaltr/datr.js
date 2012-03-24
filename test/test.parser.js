@@ -14,18 +14,17 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateInformal = function (test) {
-    test.expect(4);
+    test.expect(3);
 
 	test.deepEqual(parser.parse("31. april 2009"), {"day": 31, "month": 3, "year": 2009}, "Absolute date with year.");
 	test.deepEqual(parser.parse("1. januar"), {"day": 1, "month": 0}, "Absolute date without year.");
-	test.deepEqual(parser.parse("am 15."), {"day": 15}, "Absolute date with prefix, without month, without year.");
 	test.deepEqual(parser.parse("am 20. april"), {"day": 20, "month": 3}, "Absolute date with prefix, with month, without year.");
 
     test.done();
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(17);
+    test.expect(18);
 	
 	test.deepEqual(parser.parse("nächsten donnerstag"), {"weekday": 3}, "Relative weekday.");
 	test.deepEqual(parser.parse("letzten mittwoch"), {"weekday": -2}, "Relative weekday.");
@@ -34,7 +33,9 @@ exports.testDateRelative = function (test) {
 	test.deepEqual(parser.parse("gestern"), {"days": -1}, "Relative day.");
 	test.deepEqual(parser.parse("vorgestern"), {"days": -2}, "Relative day.");
 	test.deepEqual(parser.parse("vor 3 tagen"), {"days": -3}, "Relative day.");
-		
+
+	test.deepEqual(parser.parse("am 15."), {"day": 15}, "Relative date with prefix, without month, without year.");
+	
 	test.deepEqual(parser.parse("nächste woche"), {"weeks": 1}, "Relative week.");
 	test.deepEqual(parser.parse("letzte woche"), {"weeks": -1}, "Relative week.");
 	test.deepEqual(parser.parse("in 2 wochen"), {"weeks": 2}, "Relative week.");
