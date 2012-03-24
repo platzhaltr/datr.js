@@ -35,7 +35,7 @@ Zum kompilieren
 
 ## Benutzung ##
 
-I Moment versteht der Parser nur Kleinbuchstaben in allen Angaben. Der Grund ist, dass die Syntax in PEG.js 0.6 zur Handhabung von Groß- und Kleinschreibung ziemlich umständlich ist. 
+Im Moment versteht der Parser nur Kleinbuchstaben in allen Angaben. Der Grund ist, dass die Syntax in PEG.js 0.6 zur Handhabung von Groß- und Kleinschreibung ziemlich umständlich ist. 
 
 Das Kern-Modul wandelt daher alle Eingabedaten zunächst transparent für den Endnutzer in Kleinbuchstaben um.
 
