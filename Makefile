@@ -8,3 +8,4 @@ build:
 	cp ./src/datr.core.js ./build/
 test:
 	./node_modules/.bin/nodeunit ./test/test.parser.js
+	./node_modules/.bin/nodeunit ./test/test.core.js
