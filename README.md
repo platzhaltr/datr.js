@@ -150,6 +150,11 @@ In manchen Fällen ist es hilfreich eine Toleranz bzw. `grace` Periode zu nutzen
 		"minutes": "x"	// defaults to 0
 	}
 
+## Standards ##
+
+- Deutsche Norm DIN 5008:2011-04 (Absatz 9.4) Schreib- und Gestaltungsregeln für die Textverarbeitung
+- Internationale Norm ISO 8601:2004-12 Data Data elements and interchange formats - Information interchange - Representation of dates and times
+
 ## Probleme ##
 
 ### vor/in x Wochen `<Wochentag>` ###
