@@ -84,7 +84,7 @@ exports.testTimeFuzzy = function (test) {
 	test.deepEqual(parser.parse("gestern abend"), {"days": -1, "fuzzytime": "evening"}, "Fuzzy time, relative, past, evening.");
 	test.deepEqual(parser.parse("morgen früh"), {"days": 1, "fuzzytime": "morning"}, "Fuzzy time, relative, future, morning.");
 	test.deepEqual(parser.parse("morgen früh um 10"), {"days": 1, "fuzzytime": "morning", "hour": 10}, "Fuzzy time, relative, future, morning, hour.");
-	test.deepEqual(parser.parse("morgen abend um 8:30"), {"days": 1, "fuzzytime": "evening", "hour": 8, "minute": 30}, "Fuzzy time, relative, future, morning, hour, minute.");
+	test.deepEqual(parser.parse("morgen abend um 8:30"), {"days": 1, "fuzzytime": "evening", "hour": 8, "minute": 30}, "Fuzzy time, relative, future, evening, hour, minute.");
 	test.deepEqual(parser.parse("morgen abend um 20:15"), {"days": 1, "fuzzytime": "evening", "hour": 20, "minute": 15}, "Fuzzy time, relative, future, evening, hour, minute, 24h.");
 	
 	test.done();
