@@ -7,9 +7,8 @@
     "keywords": [
         "date"
     ],
-    "main": "./datr.js",
-    "engines": {
-        "node": "*"
+    "engines" : { 
+        "node" : ">=0.6.0"
     },
     "repository": {
         "type": "git",
