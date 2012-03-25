@@ -91,16 +91,16 @@ In detail:
 		var minute = then.getMinutes();
 
 		if (datum.weeks !== undefined) {
-			then.setHours(now.getHours() + datum.weeks * DAYS_IN_WEEK * HOURS_IN_DAY);
+			day = then.getDate() + datum.weeks * DAYS_IN_WEEK;
 		}
 		if (datum.days !== undefined) {
-			then.setHours(now.getHours() + datum.days * HOURS_IN_DAY);
+			day = then.getDate() + datum.days;
 		}
 		if (datum.hours !== undefined) {
-			then.setHours(now.getHours() + datum.hours);
+			hour = then.getHours() + datum.hours;
 		}
 		if (datum.minutes !== undefined) {
-			then.setHours(now.getHours() + datum.hours);
+			minute = now.getMinutes() + datum.minutes;
 		}
 
 		if (datum.weekday !== undefined) {
@@ -121,7 +121,6 @@ In detail:
 					month = datum.day < day ? month : month - 1;
 				}
 			}
-			
 		}
 
 		if (datum.month !== undefined) {
