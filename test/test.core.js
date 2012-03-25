@@ -138,7 +138,7 @@ exports.testTimeAbsolute = function (test) {
 };
 
 exports.testTimeFuzzy = function (test) {
-	test.expect(3);
+	test.expect(6);
 	var then = {};
 	
 	// "gestern mittag"
@@ -147,6 +147,13 @@ exports.testTimeFuzzy = function (test) {
 	test.strictEqual(then.getDate(), 23, "Fuzzy time, relative, past, noon. Day.");
 	test.strictEqual(then.getHours(), 12, "Fuzzy time, relative, past, noon. Hour.");
 	test.strictEqual(then.getMinutes(), 0, "Fuzzy time, relative, past, noon. Minute.");
+	
+	// ""morgen abend um 8:30""
+	then = d.get({"days": 1, "fuzzytime": "evening", "hour": 8, "minute": 30}, DATE);
+	
+	test.strictEqual(then.getDate(), 25, "Fuzzy time, relative, future, evening, hour, minute. Day.");
+	test.strictEqual(then.getHours(), 20, "Fuzzy time, relative, future, evening, hour, minute. Hour.");
+	test.strictEqual(then.getMinutes(), 30, "Fuzzy time, relative, future, evening, hour, minute. Minute.");
 	
 	test.done();
 };
