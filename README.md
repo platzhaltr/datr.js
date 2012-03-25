@@ -141,3 +141,25 @@ In manchen Fällen ist es hilfreich eine Toleranz bzw. `grace` Periode zu nutzen
 		"hours": "x",	// defaults to 0
 		"minutes": "x"	// defaults to 0
 	}
+
+## Probleme ##
+
+### vor/in x Wochen <Wochentag> ###
+
+Es steht noch die Frage aus auf welches Datum man sich bezieht, wenn man Aussagen wie "in 4 Wochen Montag" trifft.
+
+Als Beispiel:
+
+Sagen wir es ist Samstag, der 24. März 2012. Ist dann der 16. April oder der 23. April gemeint.
+
+Dasselbe Problem existiert, wenn man in die Vergangenheit schaut. Was ist, wenn beispielsweise Mittwoch, der 21. März ist. Dann kann man "vor drei Wochen Donnerstag" als 1. März oder 8. März interpretieren.
+
+### <Wochentag>, in x Wochen nicht parsbar ###
+
+Aussagen wie
+
+- `Montag in drei Wochen`
+- `Mittwoch, vor 2 Wochen`
+- `der Samstag vor 3 Wochen`
+
+sind im Moment nicht parsbar
