@@ -152,7 +152,7 @@ In manchen Fällen ist es hilfreich eine Toleranz bzw. `grace` Periode zu nutzen
 
 ## Probleme ##
 
-### vor/in x Wochen <Wochentag> ###
+### vor/in x Wochen `<Wochentag>` ###
 
 Es steht noch die Frage aus auf welches Datum man sich bezieht, wenn man Aussagen wie "in 4 Wochen Montag" trifft.
 
@@ -162,7 +162,7 @@ Sagen wir es ist Samstag, der 24. März 2012. Ist dann der 16. April oder der 23
 
 Dasselbe Problem existiert, wenn man in die Vergangenheit schaut. Was ist, wenn beispielsweise Mittwoch, der 21. März ist. Dann kann man "vor drei Wochen Donnerstag" als 1. März oder 8. März interpretieren.
 
-### <Wochentag>, in x Wochen nicht parsbar ###
+### `<Wochentag>`, in x Wochen nicht parsbar ###
 
 Aussagen wie
 
