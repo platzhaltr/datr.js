@@ -90,8 +90,37 @@ In detail:
 		var hour = then.getHours();
 		var minute = then.getMinutes();
 
+		if (datum.hour !== undefined) {
+			hour = datum.hour;
+			minute = (datum.minute !== undefined) ? datum.minute : ZERO;
+		}
+
+		if (datum.minute !== undefined) {
+			minute = datum.minute;
+		}
+
+		if (datum.time !== undefined) {
+			hour = config.times[datum.time].split(':')[0];
+			minute = config.times[datum.time].split(':')[1];
+
+			if (datum.hour !== undefined) {
+				hour = datum.hour;
+				if ((datum.time === "evening" || datum.time === "night") && (datum.hour < HOURS_IN_MERIDIAN)) {
+					hour = hour + HOURS_IN_MERIDIAN;
+				}
+			}
+
+			if (datum.minute !== undefined) {
+				minute = datum.minute;
+			}
+		}
+
 		if (datum.weeks !== undefined) {
 			day = then.getDate() + datum.weeks * DAYS_IN_WEEK;
+			if ((datum.weekday !== undefined) && then.getDay() !== datum.weekday) {
+				day = day + (datum.weekday - then.getDay());
+			}
+			return mutateDate(then, day, month, year, hour, minute, ZERO);
 		}
 		if (datum.days !== undefined) {
 			day = then.getDate() + datum.days;
@@ -136,45 +165,23 @@ In detail:
 			}
 		}
 
-		if (datum.hour !== undefined) {
-			hour = datum.hour;
-			minute = (datum.minute !== undefined) ? datum.minute : ZERO;
-		}
-
-		if (datum.minute !== undefined) {
-			minute = datum.minute;
-		}
-
-		if (datum.time !== undefined) {
-			hour = config.times[datum.time].split(':')[0];
-			minute = config.times[datum.time].split(':')[1];
-
-			if (datum.hour !== undefined) {
-				hour = datum.hour;
-				if ((datum.time === "evening" || datum.time === "night") && (datum.hour < HOURS_IN_MERIDIAN)) {
-					hour = hour + HOURS_IN_MERIDIAN;
-				}
-			}
-
-			if (datum.minute !== undefined) {
-				minute = datum.minute;
-			}
-		}
-
-		then.setDate(day);
-		then.setMonth(month);
-		then.setFullYear(year);
-		then.setHours(hour);
-		then.setMinutes(minute);
-		then.setSeconds(ZERO);
-
-		return then;
+		return mutateDate(then, day, month, year, hour, minute, ZERO);
 	};
 
 	Datr.prototype.parse =  function (text, now) {
 		now = (typeof now === "undefined") ? new Date() : now;
 		return this.get(parser.parse(text.toLowerCase()), now);
 	};
+
+	function mutateDate(date, day, month, year, hour, minute, second) {
+		date.setDate(day);
+		date.setMonth(month);
+		date.setFullYear(year);
+		date.setHours(hour);
+		date.setMinutes(minute);
+		date.setSeconds(ZERO);
+		return date;
+	}
 
 	// expose it
 	exports.Datr = Datr;
