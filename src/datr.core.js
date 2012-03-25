@@ -174,9 +174,12 @@ In detail:
 	};
 
 	function mutateDate(date, day, month, year, hour, minute, second) {
-		date.setDate(day);
-		date.setMonth(month);
+		// the order is important
+		// for example day can be > 31, which resets month accordingly
 		date.setFullYear(year);
+		date.setMonth(month);
+		
+		date.setDate(day);
 		date.setHours(hour);
 		date.setMinutes(minute);
 		date.setSeconds(ZERO);

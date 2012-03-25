@@ -39,7 +39,7 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(18);
+    test.expect(21);
 	var then = {};
 	
 	// "nächsten donnerstag"
@@ -89,6 +89,14 @@ exports.testDateRelative = function (test) {
 	test.strictEqual(then.getDate(), 15, "Relative past, last week, weekday. Day.");
 	test.strictEqual(then.getMonth(), 2, "Relative past, last week, weekday. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Relative past, last week, weekday. Year.");
+
+	// "in 4 wochen montag"
+	then = d.get({"weeks": 4, "weekday": 1}, DATE);
+
+	// DATE is 24.03, focus is overriden
+	test.strictEqual(then.getDate(), 16, "Relative future, multiple weeks, weekday. Day.");
+	test.strictEqual(then.getMonth(), 3, "Relative future, multiple weeks, weekday. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative future, multiple weeks, weekday. Year.");
 
     test.done();
 };
