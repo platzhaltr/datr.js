@@ -36,10 +36,10 @@ exports.testDateRelative = function (test) {
 
 	test.deepEqual(parser.parse("am 15."), {"day": 15}, "Relative day with prefix, without month, without year.");
 	
-	test.deepEqual(parser.parse("nächste woche"), {"weeks": 1}, "Relative week.");
-	test.deepEqual(parser.parse("letzte woche"), {"weeks": -1}, "Relative week.");
-	test.deepEqual(parser.parse("in 2 wochen"), {"weeks": 2}, "Relative week.");
-	test.deepEqual(parser.parse("vor 2 wochen"), {"weeks": -2}, "Relative week.");
+	test.deepEqual(parser.parse("nächste woche"), {"weeks": 1}, "Relative week, future.");
+	test.deepEqual(parser.parse("letzte woche"), {"weeks": -1}, "Relative week, past.");
+	test.deepEqual(parser.parse("in 2 wochen"), {"weeks": 2}, "Relative multiple weeks, future.");
+	test.deepEqual(parser.parse("vor 2 wochen"), {"weeks": -2}, "Relative multiple weeks, past.");
 
 	test.deepEqual(parser.parse("letzte woche donnerstag"), {"weeks": -1, "weekday": 4}, "Relative past, last week, weekday.");
 	test.deepEqual(parser.parse("vor 3 wochen mittwoch"), {"weeks": -3, "weekday": 3}, "Relative past, multiple weeks, weekday.");
