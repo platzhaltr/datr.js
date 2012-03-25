@@ -1,8 +1,8 @@
 .PHONY: clean test
 all: clean build test
+build: makeDirectory buildGrammar copyCore
 clean:
 	rm -rf build/
-build: makeDirectory buildGrammar copyCore
 makeDirectory:
 	mkdir -p build
 buildGrammar:
