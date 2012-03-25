@@ -114,10 +114,12 @@ In detail:
 				minute = datum.minute;
 			}
 		}
+		
 		if (datum.months !== undefined) {
 			month = then.getMonth() + datum.months;
 			return mutateDate(then, day, month, year, hour, minute, ZERO);
 		}
+
 		if (datum.weeks !== undefined) {
 			day = then.getDate() + datum.weeks * DAYS_IN_WEEK;
 			if ((datum.weekday !== undefined) && then.getDay() !== datum.weekday) {
@@ -125,12 +127,15 @@ In detail:
 			}
 			return mutateDate(then, day, month, year, hour, minute, ZERO);
 		}
+
 		if (datum.days !== undefined) {
 			day = then.getDate() + datum.days;
 		}
+
 		if (datum.hours !== undefined) {
 			hour = then.getHours() + datum.hours;
 		}
+
 		if (datum.minutes !== undefined) {
 			minute = now.getMinutes() + datum.minutes;
 		}
