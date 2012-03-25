@@ -9,7 +9,7 @@ var parser = require('./datr.parser.js');
 	'use strict';
 
 	/** CONSTANTS */
-	var ZERO = 0, DAYS_IN_WEEK = 7, HOURS_IN_DAY = 24, HOURS_IN_MERIDIAN = 12;
+	var ZERO = 0, DAYS_IN_WEEK = 7, HOURS_IN_MERIDIAN = 12;
 	var MILLENIUM = 1000;
 	/**
 	* times must be in 24h hh:mm format
@@ -104,9 +104,9 @@ In detail:
 		}
 
 		if (datum.weekday !== undefined) {
-			if (config.focus.date === "past" || datum.weekday < 0) {				
+			if (config.focus.date === "past" || datum.weekday < 0) {
 				day = (then.getDate() - ((datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((now.getDay() - Math.abs(datum.weekday) + DAYS_IN_WEEK) % DAYS_IN_WEEK)));
-			} else if (config.focus.date === "future") {				
+			} else if (config.focus.date === "future") {
 				day = (then.getDate() + ((datum.weekday === now.getDay()) ? DAYS_IN_WEEK : ((datum.weekday - now.getDay() + DAYS_IN_WEEK) % DAYS_IN_WEEK)));
 			}
 		}
