@@ -102,10 +102,9 @@ In detail:
 		if (datum.fuzzytime !== undefined) {
 			hour = config.times[datum.fuzzytime].split(':')[0];
 			minute = config.times[datum.fuzzytime].split(':')[1];
-
 			if (datum.hour !== undefined) {
 				hour = datum.hour;
-				if ((datum.time === "evening" || datum.time === "night") && (datum.hour < HOURS_IN_MERIDIAN)) {
+				if ((datum.fuzzytime === "evening" || datum.fuzzytime === "night") && (datum.hour < HOURS_IN_MERIDIAN)) {
 					hour = hour + HOURS_IN_MERIDIAN;
 				}
 			}
