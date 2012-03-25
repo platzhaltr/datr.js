@@ -1,4 +1,4 @@
-.PHONY: clean test
+.PHONY: clean test dist
 all: clean build test dist
 build: mkdirBuild compileGrammar copyToBuild
 dist: mkdirDist uglify
@@ -18,7 +18,6 @@ testParser:
 	./node_modules/.bin/nodeunit ./test/test.parser.js
 testCore:
 	./node_modules/.bin/nodeunit ./test/test.core.js
-dist: uglify
 uglify: uglifyCore uglifyParser
 uglifyCore:
 	./node_modules/.bin/uglifyjs --output ./dist/datr.core.min.js ./build/datr.core.js
