@@ -39,13 +39,13 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(9);
+    test.expect(12);
 	var then = {};
 	
 	// "nächsten donnerstag"
 	then = d.get({"weekday": 4}, DATE);
 
-	// DATE is 24.03, is saturday, getDay() = 5
+	// DATE is 24.03, is saturday, getDay() = 5, focus is overridden
 	test.strictEqual(then.getDate(), 29, "Relative weekday, future. Day.");
 	test.strictEqual(then.getMonth(), 2, "Relative weekday, future. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, future. Year.");
@@ -53,7 +53,7 @@ exports.testDateRelative = function (test) {
 	// "letzten mittwoch"
 	then = d.get({"weekday": -3}, DATE);
 
-	// DATE is 24.03, is saturday, getDay() = 5
+	// DATE is 24.03, is saturday, getDay() = 5, focus is overriden
 	test.strictEqual(then.getDate(), 21, "Relative weekday, past. Day.");
 	test.strictEqual(then.getMonth(), 2, "Relative weekday, past. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, past. Year.");
@@ -65,6 +65,13 @@ exports.testDateRelative = function (test) {
 	test.strictEqual(then.getDate(), 15, "Relative day with prefix, without month, without year. Day.");
 	test.strictEqual(then.getMonth(), 3, "Relative day with prefix, without month, without year. Month.");
 	test.strictEqual(then.getFullYear(), 2012, "Relative day with prefix, without month, without year. Year.");
+
+	// "nächste woche"
+	then = d.get({"weeks": 1}, DATE);
+
+	test.strictEqual(then.getDate(), 31, "Relative weekday, past. Day.");
+	test.strictEqual(then.getMonth(), 2, "Relative weekday, past. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, past. Year.");
 
     test.done();
 };
