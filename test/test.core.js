@@ -70,9 +70,9 @@ exports.testDateRelative = function (test) {
 	then = d.get({"weeks": 1}, DATE);
 
 	// DATE is 24.03, focus is overriden
-	test.strictEqual(then.getDate(), 31, "Relative weekday, past. Day.");
-	test.strictEqual(then.getMonth(), 2, "Relative weekday, past. Month.");
-	test.strictEqual(then.getFullYear(), 2012, "Relative weekday, past. Year.");
+	test.strictEqual(then.getDate(), 31, "Relative week, future. Day.");
+	test.strictEqual(then.getMonth(), 2, "Relative week, future. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative week, future. Year.");
 
     test.done();
 };
