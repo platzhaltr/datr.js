@@ -1,6 +1,6 @@
 {
     "name": "datr",
-    "version": "0.1",
+    "version": "0.2",
     "description": "datr.js is a javascript date library for natural date parsing (in german)",
     "homepage": "https://github.com/platzhaltr/datr.js",
     "author": "Oliver Schrenk <oliver.schrenk@gmail.com>",
