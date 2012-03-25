@@ -119,14 +119,20 @@ exports.testDateRelative = function (test) {
 
 
 exports.testTimeAbsolute = function (test) {
-    test.expect(2);
+    test.expect(4);
 	var then = {};
 	
-	// "18 Uhr"
+	// "18 uhr"
 	then = d.get({"hour": 18}, DATE);
 	
 	test.strictEqual(then.getHours(), 18, "Absolute time, hour only. Hour.");
 	test.strictEqual(then.getMinutes(), 0, "Absolute time, hour only. Minute.");
+	
+	// "18 uhr 30"
+	then = d.get({"hour": 18, "minute": 30}, DATE);
+	
+	test.strictEqual(then.getHours(), 18, "Absolute time, hour, minute. Hour.");
+	test.strictEqual(then.getMinutes(), 30, "Absolute time, hour, minute. Minute.");
 	
 	test.done();
 };
