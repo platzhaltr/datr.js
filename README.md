@@ -26,12 +26,20 @@ Man benötigt
 - [npm](npmjs.org)
 - [PEG.js](http://pegjs.majda.cz/)
 
-Zum kompilieren
+Zum Erstellen
 
 	git clone git@github.com:platzhaltr/datr.js.git
 	cd datr.js
 	npm install
 	make
+
+Nur zum Kompilieren der Grammatik und Quelltexte
+
+	make build
+	
+Erstellen einer Distribution (uglified/minified), nach der Kompilierung:
+
+	make dist
 
 ## Benutzung ##
 
