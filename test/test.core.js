@@ -39,7 +39,7 @@ exports.testDateFormal = function (test) {
 };
 
 exports.testDateRelative = function (test) {
-    test.expect(24);
+    test.expect(27);
 	var then = {};
 	
 	// "nächsten donnerstag"
@@ -102,9 +102,17 @@ exports.testDateRelative = function (test) {
 	then = d.get({"months": -2}, DATE);
 
 	// DATE is 24.03, focus is overriden
-	test.strictEqual(then.getDate(), 24, "Relative future, multiple month. Day.");
-	test.strictEqual(then.getMonth(), 0, "Relative future, multiple month. Month.");
-	test.strictEqual(then.getFullYear(), 2012, "Relative future, multiple month. Year.");
+	test.strictEqual(then.getDate(), 24, "Relative past, multiple month. Day.");
+	test.strictEqual(then.getMonth(), 0, "Relative past, multiple month. Month.");
+	test.strictEqual(then.getFullYear(), 2012, "Relative past, multiple month. Year.");
+
+	// "in 5 jahren"
+	then = d.get({"years": 5}, DATE);
+
+	// DATE is 24.03, focus is overriden
+	test.strictEqual(then.getDate(), 24, "Relative future, multiple years. Day.");
+	test.strictEqual(then.getMonth(), 2, "Relative future, multiple years. Month.");
+	test.strictEqual(then.getFullYear(), 2017, "Relative future, multiple years. Year.");
 
     test.done();
 };

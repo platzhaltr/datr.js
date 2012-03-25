@@ -115,6 +115,11 @@ In detail:
 			}
 		}
 		
+		if (datum.years !== undefined) {
+			year = then.getFullYear() + datum.years;
+			return mutateDate(then, day, month, year, hour, minute, ZERO);
+		}
+
 		if (datum.months !== undefined) {
 			month = then.getMonth() + datum.months;
 			return mutateDate(then, day, month, year, hour, minute, ZERO);
