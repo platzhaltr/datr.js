@@ -24,9 +24,8 @@
         }
     ],
     "devDependencies": {
-        "jshint": "latest",
-        "uglify-js": "latest",
-        "nodeunit": "latest",
-		"pegjs": "latest"
+        "uglify-js": "1.2.6",
+        "nodeunit": "0.7.4",
+		"pegjs": "0.6.2"
     }
 }
