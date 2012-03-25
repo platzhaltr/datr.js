@@ -99,9 +99,9 @@ In detail:
 			minute = datum.minute;
 		}
 
-		if (datum.time !== undefined) {
-			hour = config.times[datum.time].split(':')[0];
-			minute = config.times[datum.time].split(':')[1];
+		if (datum.fuzzytime !== undefined) {
+			hour = config.times[datum.fuzzytime].split(':')[0];
+			minute = config.times[datum.fuzzytime].split(':')[1];
 
 			if (datum.hour !== undefined) {
 				hour = datum.hour;
@@ -177,7 +177,6 @@ In detail:
 				year = Math.floor(now.getFullYear() / MILLENIUM) * MILLENIUM + year;
 			}
 		}
-
 		return mutateDate(then, day, month, year, hour, minute, ZERO);
 	};
 
