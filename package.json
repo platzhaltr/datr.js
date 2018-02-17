@@ -1,30 +1,30 @@
 {
-    "name": "datr.js",
-    "version": "0.2.0",
-    "description": "datr.js is a javascript date library for natural date parsing (in german)",
-    "homepage": "https://github.com/platzhaltr/datr.js",
-    "author": "Oliver Schrenk <oliver.schrenk@gmail.com>",
-    "keywords": [
-        "date"
-    ],
-    "engines" : { 
-        "node" : ">=0.6.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/platzhaltr/datr.js.git"
-    },
-    "bugs": {
-        "url": "https://github.com/platzhaltr/datr.js/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT"
-        }
-    ],
-    "devDependencies": {
-        "uglify-js": "1.2.6",
-        "nodeunit": "0.7.4",
-		"pegjs": "0.6.2"
+  "name": "datr.js",
+  "version": "0.2.0",
+  "description": "datr.js is a javascript date library for natural date parsing (in german)",
+  "homepage": "https://github.com/platzhaltr/datr.js",
+  "author": "Oliver Schrenk <oliver.schrenk@gmail.com>",
+  "keywords": [
+    "date"
+  ],
+  "engines": {
+    "node": ">=0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platzhaltr/datr.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/platzhaltr/datr.js/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
     }
+  ],
+  "devDependencies": {
+    "uglify-js": "1.2.6",
+    "nodeunit": "0.7.4",
+    "pegjs": "0.6.2"
+  }
 }
