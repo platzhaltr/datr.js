@@ -1,11 +1,11 @@
 {
 /**
- * Overwrites objectA's values with objectB's and adds objectB's if non 
+ * Overwrites objectA's values with objectB's and adds objectB's if non
  * existent in objectA
- * 
+ *
  * @param {object} objectA
  * @param {object} objectB
- * 
+ *
  * @returns {object} A new object based on objectA and objectB
  */
 function merge(objectA,objectB){
@@ -129,9 +129,6 @@ sunday
   = 'son'[n]?'tag'	{return 0;}
   / 'so'DOT?		{return 0;}
 
-yearsLiteral
-  = 'jahr'
-
 monthLiteral
   = month:january
   / month:february
@@ -172,7 +169,7 @@ june
 july
   = 'juli'			{return 6;}
   / 'jul'DOT?		{return 6;}
-  
+
 august
   = 'august'		{return 7;}
   / 'aug'DOT?		{return 7;}
@@ -263,7 +260,7 @@ minutesLiteral
   = 'minuten'
   / 'min'DOT?
   / 'm'DOT?
-  
+
 last
   = 'letzte'casusSuffix?
 
