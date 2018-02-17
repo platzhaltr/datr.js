@@ -309,7 +309,7 @@ clock
 
 Integer
 = "0"
-/ digit:NonZeroDigit digits:DecimalDigits? { return digit + digits; }
+/ digit:NonZeroDigit digits:DecimalDigits? { return digit + (digits == null ? "" : digits); }
 
 DecimalDigits
 = digits:DecimalDigit+ { return digits.join(""); }
